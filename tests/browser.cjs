@@ -1,0 +1,47 @@
+const {chromium} = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+(async()=>{
+ const browser = await chromium.launch({headless:true,channel:'chrome'});
+ const page = await browser.newPage();
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:4173');
+ await page.evaluate(()=>document.fonts.ready);
+ fs.mkdirSync('qa',{recursive:true});
+ for(const width of [1440,768,375,320]){
+   await page.setViewportSize({width,height:900});
+   await page.screenshot({path:`qa/home-${width}.png`,fullPage:true});
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`overflow at ${width}`);
+ }
+ await page.setViewportSize({width:1440,height:1000});
+ assert.equal(await page.locator('.product-card').count(),6);
+ await page.locator('[data-filter="cat"]').click();assert.equal(await page.locator('.product-card').count(),4);
+ assert.equal(await page.locator('[data-product="duck"]').count(),0);
+ await page.locator('[data-filter="dog"]').click();assert.equal(await page.locator('.product-card').count(),4);
+ assert.equal(await page.locator('[data-product="salmon"]').count(),0);
+ await page.locator('[data-filter="all"]').click();
+ await page.locator('[data-add="chicken"]').click();await page.locator('[data-add="chicken"]').click();await page.locator('[data-add="salmon"]').click();
+ await page.locator('#open-cart').click();assert.equal(await page.locator('#cart-total').textContent(),'¥97.00');
+ await page.locator('[data-change="chicken"][data-delta="-1"]').click();assert.equal(await page.locator('#cart-total').textContent(),'¥68.00');
+ await page.locator('[data-remove="salmon"]').click();assert.equal(await page.locator('#cart-total').textContent(),'¥29.00');
+ await page.screenshot({path:'qa/cart-desktop.png'});
+ await page.keyboard.press('Escape');assert.equal(await page.locator('#cart-dialog').evaluate(e=>e.open),false);
+ assert.equal(await page.locator('#open-cart').evaluate(e=>e===document.activeElement),true);
+ await page.reload();assert.equal(await page.locator('#cart-count').textContent(),'1');
+ await page.setViewportSize({width:375,height:812});await page.locator('#open-cart').click();
+ assert.equal(await page.locator('#cart-dialog').evaluate(e=>e.getBoundingClientRect().width),375);
+ await page.screenshot({path:'qa/cart-mobile.png'});
+ await page.locator('[data-remove="chicken"]').click();assert.equal(await page.locator('.empty-cart').count(),1);
+ await page.locator('#empty-shop').click();assert.equal(await page.locator('#cart-dialog').evaluate(e=>e.open),false);
+ await page.locator('[data-policy="shipping"]').click();assert.equal(await page.locator('#policy-dialog').evaluate(e=>e.open),true);
+ await page.keyboard.press('Escape');await page.locator('[data-policy="returns"]').click();assert.equal(await page.locator('#policy-title').textContent(),'售后政策');await page.keyboard.press('Escape');
+ await page.route('**/assets/*.png',route=>route.abort());await page.reload();
+ await page.locator('#products').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.hero-photo').classList.contains('failed'));
+ assert.equal(await page.locator('.hero-photo .image-fallback').isVisible(),true);
+ assert.equal(await page.locator('[data-add="chicken"]').isVisible(),true);
+ await page.locator('[data-add="chicken"]').click();assert.equal(await page.locator('#cart-count').textContent(),'1');
+ assert.deepEqual(errors,[]);
+ console.log('PASS: responsive 1440/768/375/320; filters; repeat add; quantity; totals; remove; persistence; dialogs; focus return; image fallback; no JS errors');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

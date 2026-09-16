@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ed">
+  <meta name="description" content="尾巴小食宠物零食演示商店。为猫咪与狗狗挑选一口用心的小奖励，了解配方、规格与价格。">
+  <title>尾巴小食 · 每一口奖励，多一点用心</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="store.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="7" cy="7" rx="2.3" ry="3"/><ellipse cx="16.8" cy="7" rx="2.3" ry="3"/><ellipse cx="3.1" cy="12" rx="2" ry="2.6"/><ellipse cx="20.8" cy="12" rx="2" ry="2.6"/><path d="M6 18c0-3 3.3-7 6-7s6 4 6 7c0 4-4.1 2-6 2s-6 2-6-2Z"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 7h14l1 14H4L5 7Z M8 8V6a4 4 0 0 1 8 0v2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 18C-1 6 13 3 21 3c0 9-2 18-13 16M4 22 16 10"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21 3 12C-3 4 7-1 12 6c5-7 15-2 9 6l-9 9Z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 8h6m-6 4h6m-6 4h4"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#products">跳转到商品</a>
+  <div class="announcement">把日常的小奖励，变成它期待的小幸福 <span>· 演示商店</span></div>
+  <header class="header">
+    <div class="container nav-inner">
+      <a class="brand" href="#" aria-label="尾巴小食，返回首页"><svg class="paw"><use href="#i-paw"/></svg><span>尾巴小食<small>TAILS & TREATS</small></span></a>
+      <nav aria-label="主导航"><a class="nav-active" href="#products">选购零食</a><a href="#promise">我们的用心</a><a href="#contact">联系我们</a></nav>
+      <button class="cart-trigger" id="open-cart" aria-haspopup="dialog"><svg class="icon"><use href="#i-bag"/></svg><span class="cart-label">零食袋</span><span class="cart-count" id="cart-count">0</span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> LITTLE TREATS, LOTS OF LOVE</p>
+        <h1 id="hero-title">每一口奖励，<br>多一点<span class="warm-word">用心。</span></h1>
+        <p class="hero-description">是饭后的撒娇，也是散步后的期待。<br>为毛孩子挑一口好零食，把爱放进每个小日常。</p>
+        <a class="primary-button" href="#products">挑选它的小零食<svg class="icon"><use href="#i-arrow"/></svg></a>
+        <div class="hero-footnote"><svg class="icon"><use href="#i-leaf"/></svg><span>看得懂的配方 · 刚刚好的小奖励</span></div>
+        <p class="promo">初次见面，试试人气鸡胸冻干 <span>¥29 / 60g 起</span><small>价格与活动为演示</small></p>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-photo image-shell"><img src="assets/hero.png" alt="暖阳下，一只金毛犬和一只猫咪陪伴着一碗小零食" fetchpriority="high"><span class="image-fallback">一份零食，两份欢喜</span></div>
+        <div class="hero-stamp"><svg class="paw"><use href="#i-paw"/></svg><span>为摇摆的尾巴<br>准备的小幸福</span></div>
+        <div class="photo-caption"><span>GOOD FOOD. HAPPY TAILS.</span><span>猫咪与狗狗的零食时光</span></div>
+      </div>
+    </section>
+    <div class="values-strip"><div class="container"><span><svg class="icon"><use href="#i-leaf"/></svg>认真看原料</span><span><svg class="icon"><use href="#i-list"/></svg>配方说清楚</span><span><svg class="icon"><use href="#i-heart"/></svg>每一口都适量</span></div></div>
+    <section class="products-section container" id="products" aria-labelledby="products-title">
+      <div class="section-heading"><div><p class="eyebrow">THE LITTLE FAVORITES</p><h2 id="products-title">找到它喜欢的那一口<span>。</span></h2><p class="section-description">冻干的酥，肉条的香，总有一款让小尾巴摇起来。</p></div><span class="section-note">用心挑选 · 日常小食</span></div>
+      <div class="product-toolbar"><div class="filters" role="group" aria-label="按宠物筛选商品"><button class="filter active" data-filter="all" aria-pressed="true">全部零食 <span>06</span></button><button class="filter" data-filter="cat" aria-pressed="false">猫咪零食</button><button class="filter" data-filter="dog" aria-pressed="false">狗狗零食</button></div><p class="result-count" id="result-count" role="status">共 6 款小奖励</p></div>
+      <p class="demo-note">商品、配方、价格与销量均为演示数据；图片为 AI 生成示意。</p>
+      <div class="product-grid" id="product-grid"></div>
+      <noscript><p class="no-script">请启用 JavaScript 查看商品并使用演示购物车。</p></noscript>
+    </section>
+    <section class="promise-section" id="promise" aria-labelledby="promise-title"><div class="container">
+      <div class="promise-heading"><p class="eyebrow">SMALL TREATS. HONEST DETAILS.</p><h2 id="promise-title">给它的，<br class="mobile-break">也是我们认真在意的。</h2><p>喜欢它吃得开心，也在意你选得明白。</p></div>
+      <div class="promise-grid">
+        <article><span class="promise-number">01 / INGREDIENTS</span><svg class="promise-icon icon"><use href="#i-leaf"/></svg><h3>原料，看得明白</h3><p>逐款列出示例原料，让每一份小零食都有清晰的配方说明。选购时，也请留意实际包装上的成分信息。</p></article>
+        <article><span class="promise-number">02 / RECIPE</span><svg class="promise-icon icon"><use href="#i-list"/></svg><h3>简单，也要说清楚</h3><p>适用宠物、规格与价格一起展示。少一点难懂的词，多一点方便比较、认真选择的实在信息。</p></article>
+        <article><span class="promise-number">03 / EVERYDAY LOVE</span><svg class="promise-icon icon"><use href="#i-heart"/></svg><h3>小奖励，适量就好</h3><p>零食是日常的小点缀，不能代替主食。实际喂食请遵循产品标注，关注宠物的年龄、体型与个体耐受。</p></article>
+      </div>
+    </div></section>
+  </main>
+  <footer id="contact"><div class="container"><div class="footer-main"><div class="footer-brand"><a class="brand" href="#"><svg class="paw"><use href="#i-paw"/></svg><span>尾巴小食<small>TAILS & TREATS</small></span></a><p>认真对待每一口，<br>也认真对待每一份陪伴。</p></div><div><h3>来打个招呼</h3><p>客服邮箱：待品牌方提供</p><p>服务时间：待品牌方确认</p></div><div><h3>关于你的零食袋</h3><button class="text-button" data-policy="shipping">配送说明 <span>↗</span></button><button class="text-button" data-policy="returns">售后政策 <span>↗</span></button></div></div><div class="footer-bottom"><span>© 2026 尾巴小食 · 演示品牌</span><span>本网站仅作前端展示，不提供真实下单与支付。</span><svg class="paw"><use href="#i-paw"/></svg></div></div></footer>
+  <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title"><div class="dialog-header"><div><p class="eyebrow">A BAG OF HAPPINESS</p><h2 id="cart-title">我的零食袋 <span id="drawer-count">0</span></h2></div><button class="close-button" data-close aria-label="关闭购物车" autofocus>×</button></div><div id="cart-items" class="cart-items"></div><div class="cart-bottom"><div class="cart-total"><span>商品合计</span><strong id="cart-total">¥0.00</strong></div><p>演示购物车，暂不支持下单</p><button class="primary-button continue-shopping" data-close>继续挑选小零食 <svg class="icon"><use href="#i-arrow"/></svg></button><small id="storage-note">零食袋仅保存在当前浏览器中</small></div></dialog>
+  <dialog class="policy-dialog" id="policy-dialog" aria-labelledby="policy-title"><div class="dialog-header"><h2 id="policy-title">配送说明</h2><button class="close-button" data-close aria-label="关闭说明" autofocus>×</button></div><div id="policy-content"></div><p class="demo-note">演示说明，不构成真实服务承诺。</p></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
