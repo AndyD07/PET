@@ -1,3 +1,40 @@
-qa/
-.sites-runtime/
+# Local screenshots and deployment artifacts
+/qa/
+/.sites-runtime/
+
+# Dependencies and caches
 node_modules/
+.cache/
+.npm/
+.pnpm-store/
+coverage/
+playwright-report/
+test-results/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local environment and secrets (keep safe templates)
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Personal editor and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# dist/ contains authored HTML, CSS, JavaScript and images: keep tracked.
+# .openai/hosting.json contains the site identity, not credentials: keep tracked.
