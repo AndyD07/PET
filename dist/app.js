@@ -26,6 +26,18 @@
     $('#result-count').textContent = `共 ${visible.length} 款小奖励`;
     connectFallbacks($('#product-grid'));
   }
+  function renderBestsellers() {
+    const salesNumber = p => Number(p.sales.replace(/[^0-9]/g,'')) || 0;
+    const ranked = [...products].sort((a,b) => salesNumber(b)-salesNumber(a)).slice(0,3);
+    $('#bestseller-list').innerHTML = ranked.map((p,index) => `<li class="bestseller-card">
+      ${image(p).replace('</div>',`<span class="bestseller-rank">第 ${index+1} 名</span></div>`)}
+      <div class="product-content"><h3>${p.name}</h3><p class="bestseller-meta">${p.pet} · ${p.weight}</p><div class="product-bottom"><div class="price"><span class="currency">¥</span>${p.price/100}<small>/ ${p.weight}</small><span class="sales">演示销量 ${p.sales}</span></div><button class="add-button" data-bestseller-add="${p.id}" aria-label="将热销榜第${index+1}名${p.name}加入购物车">+</button></div></div></li>`).join('');
+    connectFallbacks($('#bestseller-list'));
+  }
+  function addToCart(id) {
+    if(cart[id]>=99){announce('这款零食最多可添加 99 件');return;}
+    cart=change(cart,id,1);persist();updateSummary();announce(`已将${byId[id].name}放进零食袋`);
+  }
   function announce(message) {
     clearTimeout(toastTimer);
     $('#toast').textContent = message;
@@ -73,9 +85,11 @@
   $('#product-grid').addEventListener('click',event => {
     const button=event.target.closest('[data-add]');
     if(!button)return;
-    const id=button.dataset.add;
-    if(cart[id]>=99){announce('这款零食最多可添加 99 件');return;}
-    cart=change(cart,id,1);persist();updateSummary();announce(`已将${byId[id].name}放进零食袋`);
+    addToCart(button.dataset.add);
+  });
+  $('#bestseller-list').addEventListener('click',event => {
+    const button=event.target.closest('[data-bestseller-add]');
+    if(button) addToCart(button.dataset.bestsellerAdd);
   });
   $('#open-cart').addEventListener('click',() => {renderCart();openDialog($('#cart-dialog'));});
   $('#cart-items').addEventListener('click',event => {
@@ -92,5 +106,5 @@
   document.querySelectorAll('[data-policy]').forEach(button => button.addEventListener('click',() => {const policy=policies[button.dataset.policy];$('#policy-title').textContent=policy.title;$('#policy-content').textContent=policy.content;openDialog($('#policy-dialog'));}));
   window.addEventListener('storage',event => {if(event.key===storageKey || event.key===null){cart=restore(event.newValue);updateSummary();if($('#cart-dialog').open)renderCart();}});
   connectFallbacks(document);
-  renderProducts();updateSummary();
+  renderProducts();renderBestsellers();updateSummary();
 })();

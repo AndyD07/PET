@@ -25,7 +25,7 @@
   <header class="header">
     <div class="container nav-inner">
       <a class="brand" href="#" aria-label="尾巴小食，返回首页"><svg class="paw"><use href="#i-paw"/></svg><span>尾巴小食<small>TAILS & TREATS</small></span></a>
-      <nav aria-label="主导航"><a class="nav-active" href="#products">选购零食</a><a href="#promise">我们的用心</a><a href="#contact">联系我们</a></nav>
+      <nav aria-label="主导航"><a class="nav-active" href="#products">选购零食</a><a href="#bestsellers">热销榜</a><a href="#promise">我们的用心</a><a href="#contact">联系我们</a></nav>
       <button class="cart-trigger" id="open-cart" aria-haspopup="dialog"><svg class="icon"><use href="#i-bag"/></svg><span class="cart-label">零食袋</span><span class="cart-count" id="cart-count">0</span></button>
     </div>
   </header>
@@ -52,6 +52,11 @@
       <p class="demo-note">商品、配方、价格与销量均为演示数据；图片为 AI 生成示意。</p>
       <div class="product-grid" id="product-grid"></div>
       <noscript><p class="no-script">请启用 JavaScript 查看商品并使用演示购物车。</p></noscript>
+    </section>
+    <section class="bestsellers-section container" id="bestsellers" aria-labelledby="bestsellers-title">
+      <div class="section-heading"><div><p class="eyebrow">THE MOST LOVED TREATS</p><h2 id="bestsellers-title">热销榜<span>。</span></h2><p class="section-description">看看哪些小奖励，更受毛孩子欢迎。</p></div><span class="section-note">演示销量排名 · TOP 3</span></div>
+      <p class="demo-note">按演示销量由高到低排列；商品、价格与销量均为演示数据。</p>
+      <ol class="bestseller-list" id="bestseller-list" aria-label="演示销量前三名" role="list"></ol>
     </section>
     <section class="promise-section" id="promise" aria-labelledby="promise-title"><div class="container">
       <div class="promise-heading"><p class="eyebrow">SMALL TREATS. HONEST DETAILS.</p><h2 id="promise-title">给它的，<br class="mobile-break">也是我们认真在意的。</h2><p>喜欢它吃得开心，也在意你选得明白。</p></div>
